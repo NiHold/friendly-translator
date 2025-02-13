@@ -129,6 +129,82 @@ paths:
       responses:
         "204":
           description: Organisation deleted successfully.
+  /organisations/{id}/invitations:
+      post:
+        tags:
+          - Invitations
+        summary: Send an invitation to join an organisation
+        operationId: sendInvitation
+        tags:
+          - Invitations
+        parameters:
+          - name: organisationId
+            in: path
+            required: true
+            description: The ID of the organisation
+            schema:
+              type: string
+        requestBody:
+          description: Invitation details
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendInvitationRequest'
+        responses:
+          '201':
+            description: Invitation sent successfully.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/InvitationResponse'
+          '400':
+            description: Validation error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          '401':
+            description: Unauthorized.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+
+  /invitations/accept:
+    get:
+      tags:
+        - Invitations
+      summary: Accept an invitation using a token
+      operationId: acceptInvitation
+      tags:
+        - Invitations
+      parameters:
+        - name: token
+          in: query
+          required: true
+          description: The unique invitation token.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invitation accepted. The user is added to the organisation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationResponse'
+        '400':
+          description: Invalid or expired invitation token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   securitySchemes:
@@ -173,8 +249,94 @@ components:
         name:
           type: string
           example: "Acme Corporation Updated"
+    SendInvitationRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the invitee.
+          example: invitee@example.com
+        expires_at:
+          type: string
+          format: date-time
+          description: >
+            Optional expiration date/time for the invitation.
+            Must be a valid ISO 8601 date-time in the future.
+          example: "2025-01-01T00:00:00Z"
+      required:
+        - email
+
+    Invitation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 123
+        organisation_id:
+          type: integer
+          example: 456
+        invited_by:
+          type: string
+          description: The ID of the user who sent the invitation.
+          example: "user_abc123"
+        email:
+          type: string
+          format: email
+          example: invitee@example.com
+        token:
+          type: string
+          description: Unique invitation token.
+          example: "randomly-generated-token"
+        status:
+          type: string
+          description: The current status of the invitation.
+          enum: [pending, accepted, expired]
+          example: "pending"
+        expires_at:
+          type: string
+          format: date-time
+          description: Expiration date/time of the invitation.
+          example: "2025-01-01T00:00:00Z"
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-04-27T12:34:56Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2023-04-27T12:34:56Z"
+
+    InvitationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Invitation sent successfully"
+        data:
+          $ref: '#/components/schemas/Invitation'
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Validation error"
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                example: "email"
+              message:
+                type: string
+                example: "Invalid email address"
 tags:
   - name: Auth
     description: Endpoints for managing auth
   - name: Organisations
     description: Endpoints for managing organisations.
+  - name: Invitations
+    description: Endpoints for managing invitations.
