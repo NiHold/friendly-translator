@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { validateBody } from "../../../middlewares/validate.middleware.js";
-import { authRateLimiter } from "../../../middlewares/rate-limiter.middleware.js";
+import { validateBody } from "../../../middleware/validate.middleware.js";
+import { authRateLimiter } from "#middleware/rate-limiter.middleware.js";
 import { registerSchema, loginSchema } from "../validations/auth.validation.js";
 
 import authController from "../controllers/auth.controller.js";

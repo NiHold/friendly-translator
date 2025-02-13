@@ -130,55 +130,55 @@ paths:
         "204":
           description: Organisation deleted successfully.
   /organisations/{id}/invitations:
-      post:
-        tags:
-          - Invitations
-        summary: Send an invitation to join an organisation
-        operationId: sendInvitation
-        tags:
-          - Invitations
-        parameters:
-          - name: organisationId
-            in: path
-            required: true
-            description: The ID of the organisation
-            schema:
-              type: string
-        requestBody:
-          description: Invitation details
+    post:
+      tags:
+        - Invitations
+      summary: Send an invitation to join an organisation
+      security:
+        - bearerAuth: []
+      operationId: sendInvitation
+      parameters:
+        - name: id
+          in: path
           required: true
+          description: The ID of the organisation
+          schema:
+            type: string
+      requestBody:
+        description: Invitation details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendInvitationRequest"
+      responses:
+        "201":
+          description: Invitation sent successfully.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SendInvitationRequest'
-        responses:
-          '201':
-            description: Invitation sent successfully.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/InvitationResponse'
-          '400':
-            description: Validation error.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-          '401':
-            description: Unauthorized.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/InvitationResponse"
+        "400":
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 
   /invitations/accept:
     get:
       tags:
         - Invitations
+      security:
+        - bearerAuth: []
       summary: Accept an invitation using a token
       operationId: acceptInvitation
-      tags:
-        - Invitations
       parameters:
         - name: token
           in: query
@@ -187,24 +187,24 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Invitation accepted. The user is added to the organisation.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvitationResponse'
-        '400':
+                $ref: "#/components/schemas/InvitationResponse"
+        "400":
           description: Invalid or expired invitation token.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
           description: Unauthorized.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
 
 components:
   securitySchemes:
@@ -314,7 +314,7 @@ components:
           type: string
           example: "Invitation sent successfully"
         data:
-          $ref: '#/components/schemas/Invitation'
+          $ref: "#/components/schemas/Invitation"
 
     ErrorResponse:
       type: object

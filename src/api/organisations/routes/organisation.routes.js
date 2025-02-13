@@ -1,13 +1,13 @@
 // src/routes/organisation.routes.js
 import { Router } from "express";
 import organisationController from "../controllers/organisation.controller.js";
-import { authenticate } from "../../../middlewares/auth.middleware.js";
-import { requireUser } from "../../../middlewares/requireUser.middleware.js";
-import { sanitize } from "../../../middlewares/sanitize.middleware.js";
+import { authenticate } from "../../../middleware/auth.middleware.js";
+import { requireUser } from "../../../middleware/requireUser.middleware.js";
+import { sanitize } from "../../../middleware/sanitize.middleware.js";
 import {
   validateBody,
   validateParams,
-} from "../../../middlewares/validate.middleware.js";
+} from "../../../middleware/validate.middleware.js";
 import {
   createOrganisationSchema,
   updateOrganisationSchema,
