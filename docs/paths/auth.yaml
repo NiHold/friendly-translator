@@ -1,0 +1,21 @@
+post:
+  tags:
+    - Auth
+  summary: Login and receive a JWT token.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/Login"
+  responses:
+    "200":
+      description: Successful login returns a JWT token.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...

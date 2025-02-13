@@ -1,0 +1,180 @@
+openapi: 3.0.1
+info:
+  title: Translator
+  description: API for managing translations.
+  version: 1.0.0
+servers:
+  - url: http://localhost:5500
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login and receive a JWT token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      responses:
+        "200":
+          description: Successful login returns a JWT token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  /organisations:
+    get:
+      tags:
+        - Organisations
+      summary: Retrieve a list of organisations for the auth user.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: A list of organisations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Organisation"
+    post:
+      tags:
+        - Organisations
+      summary: Create a new organisation.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganisationCreate"
+      responses:
+        "201":
+          description: Organisation created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Organisation"
+  /organisations/{id}:
+    get:
+      tags:
+        - Organisations
+      summary: Retrieve a specific organisation by ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The organisation ID.
+      responses:
+        "200":
+          description: Organisation found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Organisation"
+        "404":
+          description: Organisation not found.
+    put:
+      tags:
+        - Organisations
+      summary: Update an organisation.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The organisation ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Organisation"
+      responses:
+        "200":
+          description: Organisation updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Organisation"
+    delete:
+      tags:
+        - Organisations
+      summary: Delete an organisation.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The organisation ID.
+      responses:
+        "204":
+          description: Organisation deleted successfully.
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: holder.nikolai@gmail.com
+        password:
+          type: string
+          example: password
+    Organisation:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1"
+        name:
+          type: string
+          example: "Acme Corporation"
+    OrganisationCreate:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+          example: "Acme Corporation"
+        description:
+          type: string
+          example: "This is an example description"
+    OrganisationUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Acme Corporation Updated"
+tags:
+  - name: Auth
+    description: Endpoints for managing auth
+  - name: Organisations
+    description: Endpoints for managing organisations.
