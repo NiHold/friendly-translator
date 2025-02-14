@@ -11,9 +11,7 @@ import { globalRateLimiter } from "./middleware/rate-limiter.middleware.js";
 import errorHandler from "./middleware/error-handler.middleware.js";
 import requestLogger from "./middleware/request-logger.middleware.js";
 
-import authRoutes from "./api/auth/routes/auth.routes.js";
-import organisationRoutes from "./api/organisations/routes/organisation.routes.js";
-import invitationRoutes from "./api/invitations/routes/invitation.routes.js";
+import routes from "./routes/v1/index.js";
 
 const app = express();
 
@@ -37,10 +35,8 @@ app.use(express.json());
 // Serve the Swagger UI at /api-docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Routes
-app.use("/auth", authRoutes);
-app.use("/organisations", organisationRoutes);
-app.use("/", invitationRoutes);
+// Mount routes with prefix & versioning
+app.use("/api/v1", routes);
 
 // A simple health-check endpoint.
 app.get("/health", (req, res) => {
