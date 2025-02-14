@@ -1,8 +1,8 @@
 // tests/organisation.service.test.js
-import organisationService from "../src/services/organisation.service.js";
-import { getSupabaseClient } from "../src/factories/supabaseClient.factory.js";
+import organisationService from "../../../src/api/organisations/services/organisation.service.js";
+import { getSupabaseClient } from "../../../src/common/factories/supabaseClient.factory.js";
 
-jest.mock("../src/factories/supabaseClient.factory.js");
+jest.mock("../../../src/common/factories/supabaseClient.factory.js");
 
 describe("Organisation Service", () => {
   let fakeOrganisation;

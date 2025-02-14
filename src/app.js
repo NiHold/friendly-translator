@@ -7,12 +7,13 @@ import { NODE_ENV, PORT, SERVER_URL } from "./config/env.js";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
-import { globalRateLimiter } from "./middlewares/rate-limiter.middleware.js";
-import errorHandler from "./middlewares/error-handler.middleware.js";
-import requestLogger from "./middlewares/request-logger.middleware.js";
+import { globalRateLimiter } from "./middleware/rate-limiter.middleware.js";
+import errorHandler from "./middleware/error-handler.middleware.js";
+import requestLogger from "./middleware/request-logger.middleware.js";
 
 import authRoutes from "./api/auth/routes/auth.routes.js";
 import organisationRoutes from "./api/organisations/routes/organisation.routes.js";
+import invitationRoutes from "./api/invitations/routes/invitation.routes.js";
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Routes
 app.use("/auth", authRoutes);
 app.use("/organisations", organisationRoutes);
+app.use("/", invitationRoutes);
 
 // A simple health-check endpoint.
 app.get("/health", (req, res) => {
