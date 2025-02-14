@@ -6,7 +6,7 @@ import invitationRoutes from "../../api/invitations/routes/invitation.routes.js"
 
 const router = Router();
 
-// Keep your existing structure
+// Bundles all routes from different modules
 router.use("/auth", authRoutes);
 router.use("/organisations", organisationRoutes);
 router.use("/", invitationRoutes);

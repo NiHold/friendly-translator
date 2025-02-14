@@ -35,7 +35,7 @@ app.use(express.json());
 // Serve the Swagger UI at /api-docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Routes
+// Mount routes with prefix & versioning
 app.use("/api/v1", routes);
 
 // A simple health-check endpoint.
