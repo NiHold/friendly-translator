@@ -1,18 +1,18 @@
 // src/routes/organisation.routes.js
 import { Router } from "express";
 import organisationController from "../controllers/organisation.controller.js";
-import { authenticate } from "../../../middleware/auth.middleware.js";
-import { requireUser } from "../../../middleware/requireUser.middleware.js";
-import { sanitize } from "../../../middleware/sanitize.middleware.js";
+import { authenticate } from "#middleware/auth.middleware.js";
+import { requireUser } from "#middleware/requireUser.middleware.js";
+import { sanitize } from "#middleware/sanitize.middleware.js";
 import {
   validateBody,
   validateParams,
-} from "../../../middleware/validate.middleware.js";
+} from "#middleware/validate.middleware.js";
 import {
   createOrganisationSchema,
   updateOrganisationSchema,
 } from "../validations/organisation.validation.js";
-import { idParamSchema } from "../../../common/validations/common.validation.js";
+import { idParamSchema } from "#common/validations/common.validation.js";
 
 const router = Router();
 

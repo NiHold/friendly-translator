@@ -1,6 +1,6 @@
 // src/factories/supabaseClient.factory.js
 import { createClient } from "@supabase/supabase-js";
-import { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } from "../../config/env.js";
+import { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } from "#config/env.js";
 
 let supabaseClient;
 

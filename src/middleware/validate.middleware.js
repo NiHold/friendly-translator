@@ -1,4 +1,3 @@
-// src/middlewares/validate.middleware.js
 import { ZodError } from "zod";
 
 export const validateBody = (schema) => {

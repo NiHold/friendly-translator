@@ -1,6 +1,6 @@
 // src/middlewares/auth.middleware.js
 import jwt from "jsonwebtoken";
-import { SUPABASE_JWT_SECRET } from "../config/env.js";
+import { SUPABASE_JWT_SECRET } from "#config/env.js";
 
 /**
  * Middleware to authenticate requests using the JWT from Supabase Auth.

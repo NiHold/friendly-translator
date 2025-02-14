@@ -2,7 +2,7 @@ import morgan from "morgan";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { NODE_ENV } from "../config/env.js";
+import { NODE_ENV } from "#config/env.js";
 
 // ES Module __dirname workaround
 const __filename = fileURLToPath(import.meta.url);
