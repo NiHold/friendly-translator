@@ -1,5 +1,5 @@
 // src/services/auth.service.js
-import { getSupabaseClient } from "../../../common/factories/supabaseClient.factory.js";
+import { getSupabaseClient } from "#common/factories/supabaseClient.factory.js";
 
 const supabase = getSupabaseClient();
 

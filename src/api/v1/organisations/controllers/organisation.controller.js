@@ -1,4 +1,3 @@
-// src/controllers/organisation.controller.js
 import organisationService from "../services/organisation.service.js";
 
 class OrganisationController {

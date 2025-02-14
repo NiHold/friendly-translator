@@ -9,11 +9,11 @@
     "test": "jest"
   },
   "imports": {
-    "#api/": "./src/api/",
-    "#common/": "./src/common/",
-    "#config/": "./src/config/",
+    "#api/*.js": "./src/api/v1/*.js",
+    "#common/*.js": "./src/common/*.js",
+    "#config/*.js": "./src/config/*.js",
     "#middleware/*.js": "./src/middleware/*.js",
-    "#routes/": "./src/routes/"
+    "#routes/*.js": "./src/routes/v1/*.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",

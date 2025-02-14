@@ -1,5 +1,5 @@
-import errorLogger from "../config/error-logger.js";
-import { NODE_ENV } from "../config/env.js";
+import errorLogger from "#config/error-logger.js";
+import { NODE_ENV } from "#config/env.js";
 
 const errorHandler = (err, req, res, next) => {
   // Log the error details with Winston

@@ -1,9 +1,8 @@
-// src/routes/invitation.routes.js
 import { Router } from "express";
 import invitationController from "../controllers/invitation.controller.js";
-import { authenticate } from "../../../middleware/auth.middleware.js";
-import { sanitize } from "../../../middleware/sanitize.middleware.js";
-import { validateBody } from "../../../middleware/validate.middleware.js";
+import { authenticate } from "#middleware/auth.middleware.js";
+import { sanitize } from "#middleware/sanitize.middleware.js";
+import { validateBody } from "#middleware/validate.middleware.js";
 import { requireUser } from "#middleware/requireUser.middleware.js";
 // You would define a schema for sending invitations (e.g., email, expiresAt)
 import { sendInvitationSchema } from "../validations/invitation.validation.js";
