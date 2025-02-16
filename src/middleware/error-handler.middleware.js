@@ -11,7 +11,7 @@ const errorHandler = (err, req, res, next) => {
     message: err.message || "Internal Server Error",
   };
 
-  // In development, include the error stack in the response.
+  // Include error stack only in development mode
   if (NODE_ENV === "development") {
     response.stack = err.stack;
   }

@@ -2,10 +2,11 @@
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
-import corsOptions from "#config/cors-options.js";
-import { NODE_ENV, PORT, SERVER_URL } from "#config/env.js";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
+
+import corsOptions from "#config/cors-options.js";
+import { NODE_ENV, PORT, SERVER_URL } from "#config/env.js";
 
 import { globalRateLimiter } from "#middleware/rate-limiter.middleware.js";
 import errorHandler from "#middleware/error-handler.middleware.js";
