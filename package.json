@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --testEnvironment=node"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --testEnvironment=node --coverage"
   },
   "imports": {
     "#api/*.js": "./src/api/v1/*.js",

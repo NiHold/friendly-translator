@@ -1,25 +1,10 @@
 // tests/api/invitations/invitation.test.js
 import { jest } from "@jest/globals";
 import request from "supertest";
+import { setupSupabaseMock, mockClient } from "../mocks/supabaseClient.mock.js";
 
-// Use unstable_mockModule to mock your dependencies before any imports
-await jest.unstable_mockModule(
-  "#common/factories/supabaseClient.factory.js",
-  () => {
-    const mockClient = {
-      from: jest.fn().mockReturnThis(),
-      insert: jest.fn().mockReturnThis(),
-      select: jest.fn().mockReturnThis(),
-      eq: jest.fn().mockReturnThis(),
-      maybeSingle: jest.fn().mockReturnThis(),
-      update: jest.fn().mockReturnThis(),
-    };
-
-    return {
-      getSupabaseClient: jest.fn(() => mockClient),
-    };
-  }
-);
+// Use unstable_mockModule to mock dependencies before any imports
+await setupSupabaseMock();
 
 await jest.unstable_mockModule(
   "#api/invitations/services/invitation.service.js",
@@ -40,19 +25,18 @@ await jest.unstable_mockModule("#middleware/auth.middleware.js", () => ({
   requireUser: (req, res, next) => next(),
 }));
 
-// Now import the modules that rely on the mocks
+// Import the modules that rely on the mocks
 const { default: invitationService } = await import(
   "#api/invitations/services/invitation.service.js"
 );
 const { default: app } = await import("#src/app.js");
 
-// Now you can write your tests as usual.
 describe("Invitation Endpoints", () => {
   describe("POST /organisations/:id/invitations", () => {
     const organisationId = "1";
     const validRequest = {
       email: "invitee@example.com",
-      expiresAt: new Date("2099-12-31T23:59:59.000Z"),
+      expires_at: new Date("2099-12-31T23:59:59.000Z"),
     };
 
     it("should send an invitation and return 201", async () => {
@@ -63,7 +47,7 @@ describe("Invitation Endpoints", () => {
         email: validRequest.email,
         token: "fake-token",
         status: "pending",
-        expiresAt: validRequest.expiresAt.toISOString(),
+        expires_at: validRequest.expires_at.toISOString(),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
@@ -85,7 +69,7 @@ describe("Invitation Endpoints", () => {
         organisationId,
         invitedBy: "test-user",
         email: validRequest.email,
-        expiresAt: validRequest.expiresAt,
+        expires_at: validRequest.expires_at,
       });
     });
 
@@ -115,7 +99,7 @@ describe("Invitation Endpoints", () => {
         email: "invitee@example.com",
         token,
         status: "accepted",
-        expiresAt: "2099-12-31T23:59:59Z",
+        expires_at: "2099-12-31T23:59:59Z",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };

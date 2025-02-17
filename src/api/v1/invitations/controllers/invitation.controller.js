@@ -6,7 +6,7 @@ class InvitationController {
     try {
       const organisationId = req.params.id;
       const invitedBy = req.user.sub; // Assuming authenticated user
-      const { email, expiresAt } = req.body;
+      const { email, expires_at } = req.body;
 
       // Validate that req.user is part of the organisation (omitted for brevity)
 
@@ -14,7 +14,7 @@ class InvitationController {
         organisationId,
         invitedBy,
         email,
-        expiresAt,
+        expires_at,
       });
 
       res.status(201).json({

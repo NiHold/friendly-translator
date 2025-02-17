@@ -2,5 +2,7 @@
 export default {
   testEnvironment: "node",
   transform: {},
-  // Possibly add other config as needed
+  collectCoverage: true,
+  collectCoverageFrom: ["src/api/**/*.{js,jsx}"],
+  coverageReporters: ["text", "lcov"],
 };
