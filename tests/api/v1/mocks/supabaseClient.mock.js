@@ -8,6 +8,8 @@ export const mockClient = {
   eq: jest.fn().mockReturnThis(),
   maybeSingle: jest.fn().mockReturnThis(),
   update: jest.fn().mockReturnThis(),
+  signUp: jest.fn().mockReturnThis(),
+  signInWithPassword: jest.fn().mockReturnThis(),
 };
 
 export function setupSupabaseMock() {

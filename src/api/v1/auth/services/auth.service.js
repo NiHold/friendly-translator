@@ -21,11 +21,13 @@ class AuthService {
       password,
     });
     if (error) {
-      throw new Error(error.message);
+      const err = new Error(error.message);
+      err.status = error.status;
+      throw err;
     }
 
     return {
-      user: formatSessionResponse(user),
+      user: formatUserResponse(user),
       session: formatSessionResponse(session),
     };
   }
