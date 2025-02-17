@@ -1,5 +1,9 @@
 // src/services/auth.service.js
 import { getSupabaseClient } from "#common/factories/supabaseClient.factory.js";
+import {
+  formatUserResponse,
+  formatSessionResponse,
+} from "#common/formatters/user.formatter.js";
 
 class AuthService {
   /**
@@ -19,7 +23,11 @@ class AuthService {
     if (error) {
       throw new Error(error.message);
     }
-    return { user, session };
+
+    return {
+      user: formatSessionResponse(user),
+      session: formatSessionResponse(session),
+    };
   }
 
   /**
@@ -39,7 +47,13 @@ class AuthService {
     if (error) {
       throw new Error(error.message);
     }
-    return { data };
+
+    const { user, session } = data;
+
+    return {
+      user: formatUserResponse(user),
+      session: formatSessionResponse(session),
+    };
   }
 
   /**

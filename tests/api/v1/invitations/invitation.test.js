@@ -1,11 +1,11 @@
 // tests/api/invitations/invitation.test.js
 import { jest } from "@jest/globals";
 import request from "supertest";
-import { setupSupabaseMock, mockClient } from "../mocks/supabaseClient.mock.js";
+import { setupSupabaseMock } from "../mocks/supabaseClient.mock.js";
 
-// Use unstable_mockModule to mock dependencies before any imports
 await setupSupabaseMock();
 
+// Use unstable_mockModule to mock dependencies before any imports
 await jest.unstable_mockModule(
   "#api/invitations/services/invitation.service.js",
   () => ({

@@ -30,6 +30,9 @@ class AuthController {
         data: result,
       });
     } catch (err) {
+      if (err.message === "Invalid login credentials") {
+        err.status = 400;
+      }
       next(err);
     }
   }
