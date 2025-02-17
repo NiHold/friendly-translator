@@ -43,6 +43,9 @@ class InvitationController {
         data: invitation,
       });
     } catch (err) {
+      if (err.message === "Invalid or expired invitation") {
+        err.status = 400;
+      }
       next(err);
     }
   }

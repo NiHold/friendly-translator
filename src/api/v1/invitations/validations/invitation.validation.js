@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const sendInvitationSchema = z.object({
   email: z.string().email({ message: "Invalid email format" }),
-  expires_at: z.preprocess(
+  expiresAt: z.preprocess(
     (arg) => {
       if (typeof arg === "string" || arg instanceof Date) {
         const date = new Date(arg);

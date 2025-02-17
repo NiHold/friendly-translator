@@ -1,8 +1,6 @@
 // src/services/auth.service.js
 import { getSupabaseClient } from "#common/factories/supabaseClient.factory.js";
 
-const supabase = getSupabaseClient();
-
 class AuthService {
   /**
    * Registers a new user using Supabase Auth.
@@ -12,6 +10,8 @@ class AuthService {
    * @returns {Promise<Object>}
    */
   async registerUser({ email, password }) {
+    const supabase = getSupabaseClient();
+
     const { user, session, error } = await supabase.auth.signUp({
       email,
       password,
@@ -30,6 +30,8 @@ class AuthService {
    * @returns {Promise<Object>}
    */
   async loginUser({ email, password }) {
+    const supabase = getSupabaseClient();
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -46,6 +48,8 @@ class AuthService {
    * @returns {Promise<Object>}
    */
   async logoutUser(token) {
+    const supabase = getSupabaseClient();
+
     // Set the access token for the current client session.
     supabase.auth.setAuth(token);
     const { error } = await supabase.auth.signOut();

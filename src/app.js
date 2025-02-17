@@ -48,6 +48,12 @@ app.get("/health", (req, res) => {
 app.use(errorHandler);
 
 // Start the server.
-app.listen(PORT, () => {
-  console.log(`Server is running at ${SERVER_URL}${PORT} in ${NODE_ENV} mode`);
-});
+if (NODE_ENV != "test") {
+  app.listen(PORT, () => {
+    console.log(
+      `Server is running at ${SERVER_URL}${PORT} in ${NODE_ENV} mode`
+    );
+  });
+}
+
+export default app;
