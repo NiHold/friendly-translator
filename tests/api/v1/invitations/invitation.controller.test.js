@@ -3,7 +3,7 @@ import { jest } from "@jest/globals";
 import request from "supertest";
 import { setupSupabaseMock } from "../mocks/supabaseClient.mock.js";
 
-await setupSupabaseMock();
+//await setupSupabaseMock();
 
 // Use unstable_mockModule to mock dependencies before any imports
 await jest.unstable_mockModule(

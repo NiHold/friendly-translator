@@ -17,9 +17,9 @@ export function authenticate(req, res, next) {
   }
 
   try {
-    // Verify token using the JWT secret from your environment variables.
+    // Attach token and verify
     const decoded = jwt.verify(token, SUPABASE_JWT_SECRET);
-    req.user = decoded; // Attach the decoded token (which should include the user id) to the request.
+    req.user = decoded;
     next();
   } catch (err) {
     return res.status(401).json({ message: "Invalid or expired token" });

@@ -167,6 +167,8 @@ class OrganisationService {
    * @returns {Promise<boolean>}
    */
   async deleteOrganisationForUser(organisationId, userId) {
+    const supabase = getSupabaseClient();
+
     // First, ensure the user is attached to the organisation.
     const { data: orgUser, error: orgUserError } = await supabase
       .from("organisation_users")

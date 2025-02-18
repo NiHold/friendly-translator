@@ -5,4 +5,5 @@ export default {
   collectCoverage: true,
   collectCoverageFrom: ["src/api/**/*.{js,jsx}"],
   coverageReporters: ["text", "lcov"],
+  verbose: true,
 };

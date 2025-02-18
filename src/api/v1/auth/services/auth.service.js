@@ -47,7 +47,9 @@ class AuthService {
       password,
     });
     if (error) {
-      throw new Error(error.message);
+      const err = new Error(error.message);
+      err.status = error.status;
+      throw err;
     }
 
     const { user, session } = data;
