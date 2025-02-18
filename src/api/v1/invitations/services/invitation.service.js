@@ -1,10 +1,10 @@
 import crypto from "crypto";
 import { getSupabaseClient } from "#common/factories/supabaseClient.factory.js";
 
-const supabase = getSupabaseClient();
-
 class InvitationService {
-  async sendInvitation({ organisationId, invitedBy, email, expiresAt }) {
+  async sendInvitation({ organisationId, invitedBy, email, expires_at }) {
+    const supabase = getSupabaseClient();
+
     // Generate a unique token
     const token = crypto.randomBytes(20).toString("hex");
 
@@ -16,7 +16,7 @@ class InvitationService {
         invited_by: invitedBy,
         email,
         token,
-        expires_at: expiresAt, // optional
+        expires_at: expires_at, // optional
       })
       .select();
 
@@ -28,6 +28,7 @@ class InvitationService {
   }
 
   async acceptInvitation(token, userId) {
+    const supabase = getSupabaseClient();
     // Retrieve the invitation by token
     const { data: invitationData, error } = await supabase
       .from("invitations")

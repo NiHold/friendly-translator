@@ -6,14 +6,15 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --testEnvironment=node --coverage"
   },
   "imports": {
     "#api/*.js": "./src/api/v1/*.js",
     "#common/*.js": "./src/common/*.js",
     "#config/*.js": "./src/config/*.js",
     "#middleware/*.js": "./src/middleware/*.js",
-    "#routes/*.js": "./src/routes/v1/*.js"
+    "#routes/*.js": "./src/routes/v1/*.js",
+    "#src/*.js": "./src/*.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",

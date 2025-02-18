@@ -1,8 +1,6 @@
 // src/services/organisation.service.js
 import { getSupabaseClient } from "#common/factories/supabaseClient.factory.js";
 
-const supabase = getSupabaseClient();
-
 class OrganisationService {
   /**
    * Creates a new organisation and associates it with the given user.
@@ -13,6 +11,8 @@ class OrganisationService {
    * @returns {Promise<Object>} - The created organisation.
    */
   async createOrganisation({ name, description }, userId) {
+    const supabase = getSupabaseClient();
+
     // Insert the organisation record.
     const { data: organisationDataRes, error: organisationError } =
       await supabase
@@ -44,6 +44,8 @@ class OrganisationService {
    * @returns {Promise<Array>} - A list of organisations.
    */
   async getOrganisationsForUser(userId) {
+    const supabase = getSupabaseClient();
+
     // First, get the organisation IDs from the join table.
     const { data: orgUserRows, error: orgUserError } = await supabase
       .from("organisation_users")
@@ -82,6 +84,8 @@ class OrganisationService {
    * @returns {Promise<Object>} - The organisation details.
    */
   async getOrganisationByIdForUser(organisationId, userId) {
+    const supabase = getSupabaseClient();
+
     // Check membership via the join table.
     const { data: orgUser, error: orgUserError } = await supabase
       .from("organisation_users")
@@ -122,6 +126,8 @@ class OrganisationService {
    * @returns {Promise<Object>} - The updated organisation details.
    */
   async updateOrganisationForUser(organisationId, updateData, userId) {
+    const supabase = getSupabaseClient();
+
     // First, ensure the user is attached to the organisation.
     const { data: orgUser, error: orgUserError } = await supabase
       .from("organisation_users")
@@ -161,6 +167,8 @@ class OrganisationService {
    * @returns {Promise<boolean>}
    */
   async deleteOrganisationForUser(organisationId, userId) {
+    const supabase = getSupabaseClient();
+
     // First, ensure the user is attached to the organisation.
     const { data: orgUser, error: orgUserError } = await supabase
       .from("organisation_users")

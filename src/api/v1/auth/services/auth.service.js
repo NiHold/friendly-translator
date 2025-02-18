@@ -1,7 +1,9 @@
 // src/services/auth.service.js
 import { getSupabaseClient } from "#common/factories/supabaseClient.factory.js";
-
-const supabase = getSupabaseClient();
+import {
+  formatUserResponse,
+  formatSessionResponse,
+} from "#common/formatters/user.formatter.js";
 
 class AuthService {
   /**
@@ -12,14 +14,22 @@ class AuthService {
    * @returns {Promise<Object>}
    */
   async registerUser({ email, password }) {
+    const supabase = getSupabaseClient();
+
     const { user, session, error } = await supabase.auth.signUp({
       email,
       password,
     });
     if (error) {
-      throw new Error(error.message);
+      const err = new Error(error.message);
+      err.status = error.status;
+      throw err;
     }
-    return { user, session };
+
+    return {
+      user: formatUserResponse(user),
+      session: formatSessionResponse(session),
+    };
   }
 
   /**
@@ -30,14 +40,24 @@ class AuthService {
    * @returns {Promise<Object>}
    */
   async loginUser({ email, password }) {
+    const supabase = getSupabaseClient();
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     if (error) {
-      throw new Error(error.message);
+      const err = new Error(error.message);
+      err.status = error.status;
+      throw err;
     }
-    return { data };
+
+    const { user, session } = data;
+
+    return {
+      user: formatUserResponse(user),
+      session: formatSessionResponse(session),
+    };
   }
 
   /**
@@ -46,6 +66,8 @@ class AuthService {
    * @returns {Promise<Object>}
    */
   async logoutUser(token) {
+    const supabase = getSupabaseClient();
+
     // Set the access token for the current client session.
     supabase.auth.setAuth(token);
     const { error } = await supabase.auth.signOut();
